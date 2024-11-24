@@ -56,5 +56,6 @@ public static void main(String[] args) throws InterruptedException {
 		softassert.assertEquals(s1,"Total Recurring Reimbursement for all Patients Per Month:" ); 
 		String s2=n2.get(7).getText();
 		softassert.assertEquals(s2, "$110700");
+                driver.quit();
 }        
 }
