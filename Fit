@@ -1,0 +1,60 @@
+package fit.fit;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
+import static org.testng.Assert.assertEquals;
+
+import java.lang.reflect.Array;
+import java.util.List;
+
+import org.jspecify.annotations.Nullable;
+import org.openqa.selenium.*;
+
+
+public class app {
+
+	
+	@Test 
+public static void main(String[] args) throws InterruptedException {	
+		
+		ChromeOptions options = new ChromeOptions();
+		ChromeDriver driver = new ChromeDriver(options);
+		driver.navigate().to("https://www.fitpeo.com/");
+		driver.navigate().to("https://fitpeo.com/revenue-calculator");
+		driver.manage().window().maximize();
+		WebElement sl=driver.findElement(By.xpath("//div[contains(@class,'css-79elbk')]//div[contains(@class,'css-j7qwjs')]"));
+		JavascriptExecutor js=(JavascriptExecutor) driver;
+		js.executeScript("arguments[0].scrollIntoView(true);",sl);
+	    WebElement sld=	driver.findElement(By.xpath("//div[contains(@class,'css-79elbk')]//div[contains(@class,'css-j7qwjs')]//span//span//input"));
+		int s= sld.getSize().width;
+	    Actions action= new Actions(driver);
+	    action.dragAndDropBy(sld, -s, 0).build().perform();
+	   action.dragAndDropBy(sld, 123, 0).build().perform();
+	   WebElement sq=	driver.findElement(By.xpath("//div[contains(@class,'css-79elbk')]//div[contains(@class,'css-j7qwjs')]//span//span//input"));
+	   int ss=sq.getSize().width;
+	   action.dragAndDropBy(sq, -ss, 0).build().perform();
+	 WebElement td=  driver.findElement(By.id(":R57alklff9da:"));
+	          td.sendKeys(Keys.CONTROL + "a");
+	          td.sendKeys(Keys.DELETE);
+			 td.sendKeys("560");
+             
+	 String ts=driver.findElement(By.xpath("//div/span/span/input")).getAttribute("value");
+	   
+	   assertEquals(ts, "560");
+	   js.executeScript("window.scrollBy(200,340)", "");
+	   List<WebElement> n1=driver.findElements(By.xpath("//div//div//label//span[contains(@class,'1sp9p8c')]//input[contains(@class,'1m9pwf3')]"));
+		n1.get(0).click();
+		n1.get(1).click();
+		n1.get(2).click();
+		n1.get(7).click();
+	   SoftAssert softassert= new SoftAssert();
+		List<WebElement> n2=driver.findElements(By.xpath("//div//header//div//p"));
+		String s1=n2.get(6).getText();
+		softassert.assertEquals(s1,"Total Recurring Reimbursement for all Patients Per Month:" ); 
+		String s2=n2.get(7).getText();
+		softassert.assertEquals(s2, "$110700");
+}        
+}
